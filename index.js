@@ -17,21 +17,24 @@ let userNameInput = document.querySelector('#username')
 let pswInputFirst = document.querySelector('#pass1')
 let pswInputSecond = document.querySelector('#pass2')
 let regForm = document.querySelector('.reg-form')
-let button = document.querySelector('#btn-register')
+//let button = document.querySelector('#btn-register')
 //button.disabled = true
 //button.classList.add('button--disabled')
 
 let formError = document.querySelector('.reg-form__error')
 let formCorrect = document.querySelector('.reg-form__correct')
 
+//let inputs = document.querySelectorAll('input')
+
 const checkUserName = (event) => {
+	event.preventDefault()
 	if (userNameInput.value !== ' ') {
 		if (users.includes(userNameInput.value)) {
-			formError.innerHTML += 'Zadané uživatelské jméno již existuje'
+			formError.innerHTML = 'Zadané uživatelské jméno již existuje'
 			userNameInput.value = ''
 			userNameInput.classList.add('input--blank')
 		} else {
-			formCorrect.innerHTML += 'Uživatelské jméno je v pořádku'
+			formCorrect.innerHTML = 'Uživatelské jméno je v pořádku'
 			formError.innerHTML = ''
 			userNameInput.classList.remove('input--blank')
 		}
@@ -45,6 +48,7 @@ const checkPasswordFirst = (event) => {
 	if (pswInputFirst.value.length >= 10) {
 		if (pswInputFirst.value.includes('-') || pswInputFirst.value.includes('_') ||
 			pswInputFirst.value.includes(':')) {
+			pswInputFirst.classList.remove('input--blank')
 			console.log('Heslo je v pořádku')
 		} else {
 			alert('Heslo musí obsahovat diakritiku - _ :')
@@ -57,11 +61,10 @@ const checkPasswordFirst = (event) => {
 }
 
 const checkPasswordSecond = (event) => {
-	if (pswInputSecond.value !== pswInputFirst.value) {
+	while (pswInputSecond.value !== pswInputFirst.value) {
 		alert('Chybné heslo')
 		pswInputSecond.classList.add('input--blank')
-	} else {
-		console.log('Správné heslo')
+		break
 	}
 }
 
